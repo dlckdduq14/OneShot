@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin - Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Page level plugin CSS-->
+    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+
+
+</head>
+
+<body id="page-top">
+    <!--페이스북 로그인-->
+    <script type="text/javascript">
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: 2262514474063120,
+                xfbml: true,
+                version: 'v2.9'
+            });
+            FB.AppEvents.logPageView();
+
+            FB.getLoginStatus(function (response) {
+                if (response.status === 'connected') {
+
+                }
+                else {
+                    FB.login(function (response) {
+                        // handle the response
+                    }, { scope: 'public_profile, email, user_birthday ' });
+                }
+            });
+
+        };
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function checkLoginState() {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        }
+        function statusChangeCallback(response) {
+            if (response.status === 'connected') {
+                testAPI();
+
+            } else {
+                document.getElementById('status').innerHTML = 'Please log into this app.';
+            }
+        }
+        function testAPI() {
+            FB.api('/me', function (response) {
+                console.log(response.id);
+                console.log(response.name);
+                window.alert(response.name + '님 환영합니다');
+                var randValNode = document.getElementById("rand-val");
+			    randValNode.innerHTML = "<b><font color='#fff'>"+response.name+"님 환영합니다. </font></b>";
+            });
+            FB.api('/me/picture?type=large', function (response) {
+                console.log(response.data.url);
+            });
+            FB.api('/me', { fields: 'email' }, function (response) {
+                console.log(response.email);
+            });
+            FB.api('/me', { fields: 'age_range ' }, function (response) {
+                console.log(response.age_range);
+            });
+            FB.api('/me', { fields: 'gender ' }, function (response) {
+                console.log(response.gender);
+            });
+            FB.api('/me', { fields: 'locale ' }, function (response) {
+                console.log(response.locale);
+            });
+        }
+
+
+/**/</script>
+
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+        <a class="navbar-brand mr-1" href="index.html">한눈에 원샷</a>
+
+        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Navbar Search -->
+        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+        </fb:login-button>
+        <div id="rand-val"></div>
+        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <a href="ComingSoon.html" style="color: #fff;"><i class="fas fa-search"></i></a>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </nav>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="sidebar navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-video"></i>
+                    <span>문화/관광</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                    <h6 class="dropdown-header">영화관</h6>
+                    <a class="dropdown-item" href="MovieTheatersNumber.html">개소수</a>
+                    <a class="dropdown-item" href="NumberOfScreens.html">스크린수</a>
+                    <a class="dropdown-item" href="NumberOfSeats.html">좌석수</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-book-open"></i>
+                    <span>교육</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                    <h6 class="dropdown-header">보육시설</h6>
+                    <a class="dropdown-item" href="NationalAndQublicAffairs.html">국공립</a>
+                    <a class="dropdown-item" href="ThePrivateSector.html">민간</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-briefcase-medical"></i>
+                    <span>의료</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                    <h6 class="dropdown-header">의료시설</h6>
+                    <a class="dropdown-item " href="General_hospital.html">종합병원</a>
+                    <a class="dropdown-item " href="hospital.html">병원</a>
+                    <a class="dropdown-item " href="clinic.html">의원</a>
+                </div>
+            </li>
+        </ul>
+
+        <div id="content-wrapper">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="carousel slide" id="carousel-32290">
+                            <ol class="carousel-indicators">
+                                <li data-slide-to="0" data-target="#carousel-32290" class="active">
+                                </li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100 " alt="Carousel Bootstrap First" src="준비중.jpg" />
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carousel-32290" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-32290" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
+                        </div>
+                       
+                        <!-- /.container-fluid -->
+
+                    </div>
+                    <!-- Sticky Footer -->
+                    <footer class="sticky-footer">
+                        <div class="container my-auto">
+                            <div class="copyright text-center my-auto">
+                                <span>Copyright © Your Website 2019</span>
+                            </div>
+                        </div>
+                    </footer>
+                    <!-- /#wrapper -->
+                    <!-- Scroll to Top Button-->
+                    <a class="scroll-to-top rounded" href="#page-top">
+                        <i class="fas fa-angle-up"></i>
+                    </a>
+
+                    <!-- Logout Modal-->
+                    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                    <a class="btn btn-primary" href="login.html">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bootstrap core JavaScript-->
+                    <script src="vendor/jquery/jquery.min.js"></script>
+                    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+                    <!-- Core plugin JavaScript-->
+                    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+                    <!-- Page level plugin JavaScript-->
+                    <script src="vendor/chart.js/Chart.min.js"></script>
+                    <script src="vendor/datatables/jquery.dataTables.js"></script>
+                    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+                    <!-- Custom scripts for all pages-->
+                    <script src="js/sb-admin.min.js"></script>
+
+                    <!-- Demo scripts for this page-->
+                    <script src="js/demo/datatables-demo.js"></script>
+                    <script src="js/demo/chart-area-demo.js"></script>
+
+</body>
+
+</html>
